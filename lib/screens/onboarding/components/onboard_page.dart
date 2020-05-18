@@ -18,12 +18,15 @@ class _OnboardPageState extends State<OnboardPage>
     with SingleTickerProviderStateMixin {
   AnimationController animationController;
   Animation<double> heroAnimation;
+  Animation<double> borderAnimation;
 
   @override
   void initState() {
     animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 750));
     heroAnimation = Tween<double>(begin: -40, end: 0).animate(
+        CurvedAnimation(parent: animationController, curve: Curves.bounceOut));
+    borderAnimation = Tween<double>(begin: 75, end: 50).animate(
         CurvedAnimation(parent: animationController, curve: Curves.bounceOut));
     animationController.forward(from: 0);
     super.initState();
@@ -119,27 +122,32 @@ class _OnboardPageState extends State<OnboardPage>
         ),
         Align(
           alignment: Alignment.centerRight,
-          child: CustomPaint(
-            painter: DrawerPaint(
-              curveColor: widget.pageModel.accentColor,
-            ),
-            child: Container(
-              width: 50.0,
-              height: double.infinity,
-              child: Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 24.0),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.arrow_back,
-                        color: widget.pageModel.primeColor,
-                        size: 32.0,
-                      ),
-                      onPressed: _nextButtonPressed,
-                    ),
-                  )),
-            ),
+          child: AnimatedBuilder(
+            animation: borderAnimation,
+            builder: (context, child) {
+              return CustomPaint(
+                painter: DrawerPaint(
+                  curveColor: widget.pageModel.accentColor,
+                ),
+                child: Container(
+                  width: borderAnimation.value,
+                  height: double.infinity,
+                  child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 24.0),
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color: widget.pageModel.primeColor,
+                            size: 32.0,
+                          ),
+                          onPressed: _nextButtonPressed,
+                        ),
+                      )),
+                ),
+              );
+            },
           ),
         ),
       ],
