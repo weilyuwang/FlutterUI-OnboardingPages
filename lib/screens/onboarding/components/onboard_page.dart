@@ -14,7 +14,27 @@ class OnboardPage extends StatefulWidget {
   _OnboardPageState createState() => _OnboardPageState();
 }
 
-class _OnboardPageState extends State<OnboardPage> {
+class _OnboardPageState extends State<OnboardPage>
+    with SingleTickerProviderStateMixin {
+  AnimationController animationController;
+  Animation<double> heroAnimation;
+
+  @override
+  void initState() {
+    animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 750));
+    heroAnimation = Tween<double>(begin: -40, end: 0).animate(
+        CurvedAnimation(parent: animationController, curve: Curves.bounceOut));
+    animationController.forward(from: 0);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
   _nextButtonPressed() {
     widget.pageController.nextPage(
       duration: Duration(
@@ -33,9 +53,17 @@ class _OnboardPageState extends State<OnboardPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 32.0),
-                child: Image.asset(widget.pageModel.imagePath),
+              AnimatedBuilder(
+                animation: heroAnimation,
+                builder: (context, child) {
+                  return Transform.translate(
+                    offset: Offset(heroAnimation.value, 0),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 32.0),
+                      child: Image.asset(widget.pageModel.imagePath),
+                    ),
+                  );
+                },
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32.0),
