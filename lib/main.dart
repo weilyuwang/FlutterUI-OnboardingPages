@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:onboarding/provider/color_provider.dart';
+import 'package:provider/provider.dart';
 import './screens/onboarding/onboarding.dart';
 import './themes/styles.dart';
 
@@ -22,7 +24,10 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Onboarding(),
+      body: ChangeNotifierProvider(
+        create: (BuildContext context) => ColorProvider(),
+        child: Onboarding(),
+      ),
     );
   }
 }

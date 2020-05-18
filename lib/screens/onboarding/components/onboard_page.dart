@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:onboarding/provider/color_provider.dart';
 import 'package:onboarding/screens/onboarding/model/onboard_page_model.dart';
+import 'package:provider/provider.dart';
 import 'drawer_paint.dart';
 
 class OnboardPage extends StatefulWidget {
@@ -39,6 +41,9 @@ class _OnboardPageState extends State<OnboardPage>
   }
 
   _nextButtonPressed() {
+    print('next button pressed');
+    Provider.of<ColorProvider>(context, listen: false).color =
+        widget.pageModel.nextAccentColor;
     widget.pageController.nextPage(
       duration: Duration(
         microseconds: 100,
