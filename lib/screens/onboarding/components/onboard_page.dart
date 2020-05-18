@@ -3,9 +3,12 @@ import 'package:onboarding/screens/onboarding/model/onboard_page_model.dart';
 import 'drawer_paint.dart';
 
 class OnboardPage extends StatefulWidget {
+  final PageController pageController;
   final OnboardPageModel pageModel;
 
-  const OnboardPage({Key key, this.pageModel}) : super(key: key);
+  const OnboardPage(
+      {Key key, @required this.pageModel, @required this.pageController})
+      : super(key: key);
 
   @override
   _OnboardPageState createState() => _OnboardPageState();
@@ -13,7 +16,12 @@ class OnboardPage extends StatefulWidget {
 
 class _OnboardPageState extends State<OnboardPage> {
   _nextButtonPressed() {
-    print('next button pressed!');
+    widget.pageController.nextPage(
+      duration: Duration(
+        microseconds: 100,
+      ),
+      curve: Curves.fastLinearToSlowEaseIn,
+    );
   }
 
   @override

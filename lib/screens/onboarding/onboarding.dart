@@ -3,13 +3,18 @@ import 'package:onboarding/screens/onboarding/components/onboard_page.dart';
 import 'package:onboarding/screens/onboarding/data/onboard_page_data.dart';
 
 class Onboarding extends StatelessWidget {
+  final PageController pageController = PageController();
+
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
       PageView.builder(
+        controller: pageController,
+        // physics: NeverScrollableScrollPhysics(),
         itemCount: onboardData.length,
         itemBuilder: (context, index) {
           return OnboardPage(
+            pageController: pageController,
             pageModel: onboardData[index],
           );
         },
