@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onboarding/screens/onboarding/model/onboard_page_model.dart';
+import 'drawer_paint.dart';
 
 class OnboardPage extends StatefulWidget {
   final OnboardPageModel pageModel;
@@ -82,23 +83,27 @@ class _OnboardPageState extends State<OnboardPage> {
         ),
         Align(
           alignment: Alignment.centerRight,
-          child: Container(
-            width: 50.0,
-            height: double.infinity,
-            color: Colors.green,
-            child: Align(
-                alignment: Alignment.bottomRight,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 24.0),
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: widget.pageModel.primeColor,
-                      size: 32.0,
+          child: CustomPaint(
+            painter: DrawerPaint(
+              curveColor: widget.pageModel.accentColor,
+            ),
+            child: Container(
+              width: 50.0,
+              height: double.infinity,
+              child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 24.0),
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: widget.pageModel.primeColor,
+                        size: 32.0,
+                      ),
+                      onPressed: _nextButtonPressed,
                     ),
-                    onPressed: _nextButtonPressed,
-                  ),
-                )),
+                  )),
+            ),
           ),
         ),
       ],
