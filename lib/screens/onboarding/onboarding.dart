@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onboarding/screens/onboarding/components/onboard_page.dart';
 
 class Onboarding extends StatelessWidget {
   @override
@@ -7,13 +8,13 @@ class Onboarding extends StatelessWidget {
       PageView.builder(
         itemCount: 4,
         itemBuilder: (context, index) {
-          return Center(child: Text('page $index'));
+          return OnboardPage();
         },
       ),
       Container(
         // Act as a banner
         width: double.infinity,
-        height: 100,
+        height: 70,
         child: Align(
           alignment: Alignment.bottomCenter,
           child: Row(
