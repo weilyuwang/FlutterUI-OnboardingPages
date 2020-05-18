@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:onboarding/screens/onboarding/components/onboard_page.dart';
+import 'package:onboarding/screens/onboarding/data/onboard_page_data.dart';
 
 class Onboarding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
       PageView.builder(
-        itemCount: 4,
+        itemCount: onboardData.length,
         itemBuilder: (context, index) {
-          return OnboardPage();
+          return OnboardPage(
+            pageModel: onboardData[index],
+          );
         },
       ),
       Container(
